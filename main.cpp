@@ -1,55 +1,16 @@
+#include "camera.h"
+#include "point.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <iostream>
 #include <array>
 
-void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius)
-{
-   const int32_t diameter = (radius * 2);
-
-   int32_t x = (radius - 1);
-   int32_t y = 0;
-   int32_t tx = 1;
-   int32_t ty = 1;
-   int32_t error = (tx - diameter);
-
-   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-   while (x >= y)
-   {
-      //  Each of the following renders an octant of the circle
-      SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
-      SDL_RenderDrawPoint(renderer, centreX + x, centreY + y);
-      SDL_RenderDrawPoint(renderer, centreX - x, centreY - y);
-      SDL_RenderDrawPoint(renderer, centreX - x, centreY + y);
-      SDL_RenderDrawPoint(renderer, centreX + y, centreY - x);
-      SDL_RenderDrawPoint(renderer, centreX + y, centreY + x);
-      SDL_RenderDrawPoint(renderer, centreX - y, centreY - x);
-      SDL_RenderDrawPoint(renderer, centreX - y, centreY + x);
-
-      if (error <= 0)
-      {
-         ++y;
-         error += ty;
-         ty += 2;
-      }
-
-      if (error > 0)
-      {
-         --x;
-         tx += 2;
-         error += (tx - diameter);
-      }
-   }
-   SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
-   SDL_RenderPresent(renderer);
-}
-
 int main(int argc, char* args[]) {
 	constexpr int SCREEN_WIDTH {960};
 	constexpr int SCREEN_HEIGHT {960};
 
-	using Position = std::array<float, 3>;
-	Position cameraPosition {0.f, 0.f ,0.f};
+	Point cameraPosition {};
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << stderr << "could not initilize sdl2: " << SDL_GetError() << "\n";
@@ -73,8 +34,8 @@ int main(int argc, char* args[]) {
 		if (event.type == SDL_QUIT)
 			quit = true;
 		SDL_RenderClear(renderer);
-		DrawCircle(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 50);
-		SDL_Delay(100);
+
+		SDL_Delay(1000/60);
 	}
 
 	SDL_DestroyWindow(window);
