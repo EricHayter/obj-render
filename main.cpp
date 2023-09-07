@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <iostream>
+#include <array>
 
 void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius)
 {
@@ -47,6 +48,9 @@ int main(int argc, char* args[]) {
 	constexpr int SCREEN_WIDTH {960};
 	constexpr int SCREEN_HEIGHT {960};
 
+	using Position = std::array<float, 3>;
+	Position cameraPosition {0.f, 0.f ,0.f};
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << stderr << "could not initilize sdl2: " << SDL_GetError() << "\n";
 		return 1;
@@ -70,6 +74,7 @@ int main(int argc, char* args[]) {
 			quit = true;
 		SDL_RenderClear(renderer);
 		DrawCircle(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 50);
+		SDL_Delay(100);
 	}
 
 	SDL_DestroyWindow(window);
