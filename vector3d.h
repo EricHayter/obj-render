@@ -5,6 +5,6 @@
 #include <array>
 
 using Vector3D = std::array<float, 3>;
-void getVector(Vector3D& v, const Point& start, const Point& end);
+Vector3D getVector(const Point& start, const Point& end);
 
 #endif
