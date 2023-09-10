@@ -1,9 +1,9 @@
 #include "vector3d.h"
-#include "point.h"
+#include "point3d.h"
 #include <array>
 
 
-Vector3D getVector(const Point& start, const Point& end)
+Vector3D getVector(const Point3D& start, const Point3D& end)
 {
 	Vector3D v {};
 	v[0] = end.x - start.x;

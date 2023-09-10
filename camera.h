@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "point.h"
+#include "point3d.h"
 #include <math.h>
 
 constexpr float FOV {M_PI/2};
@@ -9,9 +9,13 @@ using Radians = float;
 
 struct Camera
 {
-	Point position {};
-	Radians yaw {};
-	Radians pitch {};
+	Point3D position {};
+	Point3D displayPosition {};
+					   	// rotation around x axis should remain 0 as we
+					   	// don't intend to use roll
+	Radians yaw {}; 	// rotation around z axis [0, 2pi]
+	Radians pitch {}; 	// rotation around y axis [0, pi]
+						//
 };
 
 #endif

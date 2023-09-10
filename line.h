@@ -1,12 +1,12 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "point.h"
+#include "point3d.h"
 
 struct Line
 {
-	Point start {};
-	Point end {};
+	Point3D start {};
+	Point3D end {};
 };
 
 #endif

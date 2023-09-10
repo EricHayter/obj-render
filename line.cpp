@@ -8,11 +8,8 @@ void drawLine(SDL_Renderer* renderer, const Camera& camera, const Line& line)
 {
 	// find the projection
 	// x y z
-	Vector3D vectorA {};
-	getVector(vectorA, line.start, line.end);
-	Vector3D vectorB {};
-
+	Vector3D vectorA {getVector(line.start, line.end)};
+	Vector3D vectorB {getVector(line.start, line.end)};
 	// create a line from the camera position to the end of the line
-	getVector(vectorA, line.start, line.end);
 	// vector projection
 }
