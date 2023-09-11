@@ -1,16 +1,24 @@
+#include "constants.h"
 #include "camera.h"
-#include "point.h"
+#include "point3d.h"
+#include "projection.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
+
 #include <iostream>
 #include <array>
+#include <cmath>
 
 int main(int argc, char* args[]) {
-	constexpr int SCREEN_WIDTH {960};
-	constexpr int SCREEN_HEIGHT {960};
+	std::cout << "Hello world!";
 
-	Point cameraPosition {};
+	Point3D cameraPosition {0.0f, 0.0f, 0.0f};
+	Point3D displayPosition {0.0f, 0.0f, 0.0f};
+	Camera camera {cameraPosition, displayPosition, 0.0f, 0}; // might need to be pi/2
+	Point3D point {100, 300, 100};
+	Point3D point2 {100, 200, 100};
+	Line line {point, point2};
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << stderr << "could not initilize sdl2: " << SDL_GetError() << "\n";
@@ -27,6 +35,7 @@ int main(int argc, char* args[]) {
 		return 1;
 	}
 
+
 	bool quit {false};
 	SDL_Event event{};
 	while (!quit)
@@ -35,7 +44,10 @@ int main(int argc, char* args[]) {
 			quit = true;
 		SDL_RenderClear(renderer);
 
-		SDL_Delay(1000/60);
+		projectLine(renderer, line, camera);
+
+		SDL_RenderPresent(renderer);
+		SDL_Delay(5000);
 	}
 
 	SDL_DestroyWindow(window);

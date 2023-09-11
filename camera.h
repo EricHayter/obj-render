@@ -4,7 +4,6 @@
 #include "point3d.h"
 #include <math.h>
 
-constexpr float FOV {M_PI/2};
 using Radians = float;
 
 struct Camera

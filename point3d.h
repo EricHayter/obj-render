@@ -2,7 +2,6 @@
 #define POINT_H
 
 #include "point2d.h"
-#include "camera.h"
 
 struct Point3D
 {
@@ -10,7 +9,5 @@ struct Point3D
 	float y {};
 	float z {};
 };
-
-Point2D getPointProjection(const Point3D& point, const Camera& camera);
 
 #endif
