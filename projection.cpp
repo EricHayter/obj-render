@@ -1,6 +1,6 @@
 #include "projection.h"
 
-#include "constants.h"
+#include "screen.h"
 #include "point3d.h"
 #include "line.h"
 #include "point2d.h"
@@ -20,20 +20,27 @@ constexpr Point3D origin {0.0f, 0.0f, 0.0f};
 
 void projectPoint(SDL_Renderer* renderer, const Point3D& point, const Camera& camera)
 {
-		Point2D projection {findProjection(point, camera)};
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawPointF(renderer, MID_W + projection.x,
-				MID_H + projection.y);
-		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	Point2D projection {findProjection(point, camera)};
+	projection.x = remapX(projection.x);
+	projection.y = remapX(projection.y);
+
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_RenderDrawPointF(renderer, MID_W + projection.x,
+			MID_H + projection.y);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 }
 
 void projectLine(SDL_Renderer* renderer, const Line& line, const Camera& camera)
 {
-		Point2D start {findProjection(line.start, camera)};
-		Point2D end {findProjection(line.end, camera)};
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawLine(renderer, start.x + MID_W, end.x + MID_W, start.y + MID_H, end.y + MID_H);
-		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	Point2D start {findProjection(line.start, camera)};
+	Point2D end {findProjection(line.end, camera)};
+	start.x = remapX(start.x);
+	start.y = remapX(start.y);
+	end.x = remapX(end.x);
+	end.y = remapX(end.y);
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_RenderDrawLine(renderer, start.x + MID_W, end.x + MID_W, start.y + MID_H, end.y + MID_H);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 }
 
 Point2D findProjection(const Point3D& point, const Camera& camera)
