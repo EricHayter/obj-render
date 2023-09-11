@@ -1,4 +1,4 @@
-#include "constants.h"
+#include "screen.h"
 #include "camera.h"
 #include "point3d.h"
 #include "projection.h"
@@ -15,9 +15,9 @@ int main(int argc, char* args[]) {
 
 	Point3D cameraPosition {0.0f, 0.0f, 0.0f};
 	Point3D displayPosition {0.0f, 0.0f, 0.0f};
-	Camera camera {cameraPosition, displayPosition, 0.0f, 0}; // might need to be pi/2
-	Point3D point {100, 300, 100};
-	Point3D point2 {100, 200, 100};
+	Camera camera {cameraPosition, displayPosition, 0.0f, 0.0f}; // might need to be pi/2
+	Point3D point {0, 0, 0};
+	Point3D point2 {0, -100, 0};
 	Line line {point, point2};
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -47,7 +47,7 @@ int main(int argc, char* args[]) {
 		projectLine(renderer, line, camera);
 
 		SDL_RenderPresent(renderer);
-		SDL_Delay(5000);
+		SDL_Delay(500);
 	}
 
 	SDL_DestroyWindow(window);

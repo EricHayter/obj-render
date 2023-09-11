@@ -9,14 +9,7 @@ constexpr float SCREEN_WIDTH {960};
 constexpr float MID_H {SCREEN_HEIGHT / 2};
 constexpr float MID_W {SCREEN_WIDTH / 2};
 
-int constexpr remapX(int x)
-{
-	return x + MID_W;
-}
-
-int constexpr reampY(int y)
-{
-	return MID_H - y;
-}
+float remapX(float x);
+float remapY(float y);
 
 #endif
