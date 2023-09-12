@@ -8,6 +8,8 @@
 
 #include "SDL2/SDL_render.h"
 
+#include <iostream>
+
 /*
  * not quite right yet
  * the Y coordinated are incorrect with the way that we have them formatted
@@ -34,11 +36,11 @@ void projectLine(SDL_Renderer* renderer, const Line& line, const Camera& camera)
 {
 	Point2D start {findProjection(line.start, camera)};
 	Point2D end {findProjection(line.end, camera)};
+
 	start.x = remapX(start.x);
 	start.y = remapY(start.y);
 	end.x = remapX(end.x);
 	end.y = remapY(end.y);
-
 
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderDrawLine(renderer, start.x, start.y, end.x, end.y);
@@ -48,19 +50,20 @@ void projectLine(SDL_Renderer* renderer, const Line& line, const Camera& camera)
 Point2D findProjection(const Point3D& point, const Camera& camera)
 {
 	Point3D cPos {camera.position};
-//	if (cPos.x ==  origin.x && cPos.y == origin.y && cPos.z == origin.z &&
-//			camera.pitch == 0.0f && camera.yaw == 0.0f)
-//	{
-//		return {point.x , point.y};
-//	}
+	//	if (cPos.x ==  origin.x && cPos.y == origin.y && cPos.z == origin.z &&
+	//			camera.pitch == 0.0f && camera.yaw == 0.0f)
+	//	{
+	//		return {point.x , point.y};
+	//	}
 	float dx {};
 	float dy {};
 	float dz {};
-	if (camera.yaw == 0 && camera.pitch == 0)
+	if (camera.yaw == 0.0f && camera.pitch == 0.0f)
 	{
-		 dx = point.x - cPos.x;
-		 dy = point.y - cPos.y;
-		 dz = point.z - cPos.z;
+		std::cout << "Point at " << point.x << " " << point.y << " " << point.z << "\n";
+		dx = point.x - cPos.x;
+		dy = point.y - cPos.y;
+		dz = point.z - cPos.z;
 	}
 	else
 	{
@@ -84,7 +87,6 @@ Point2D findProjection(const Point3D& point, const Camera& camera)
 		dy = sinx*c + cosx*b;
 		dz = cosx*c - sinx*b;
 	}
-
 
 	Point3D e {camera.displayPosition};
 	Point2D projection {e.z/dz*dx + e.x, e.z/dz*dy +e.y};

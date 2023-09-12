@@ -11,14 +11,10 @@
 #include <cmath>
 
 int main(int argc, char* args[]) {
-	std::cout << "Hello world!";
-
 	Point3D cameraPosition {0.0f, 0.0f, 0.0f};
-	Point3D displayPosition {0.0f, 0.0f, 0.0f};
+	Point3D displayPosition {0.0f, 0.0f, MID_H};
 	Camera camera {cameraPosition, displayPosition, 0.0f, 0.0f}; // might need to be pi/2
-	Point3D point {0, 0, 0};
-	Point3D point2 {0, -100, 0};
-	Line line {point, point2};
+	Line line {{0, 0 , 100}, {0, 10, 100}};
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << stderr << "could not initilize sdl2: " << SDL_GetError() << "\n";
