@@ -2,6 +2,8 @@
 #include "camera.h"
 #include "point3d.h"
 #include "projection.h"
+#include "cube.h"
+#include "line.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
@@ -12,7 +14,7 @@
 
 int main(int argc, char* args[]) {
 	Point3D cameraPosition {0.0f, 0.0f, 0.0f};
-	Point3D displayPosition {0.0f, 0.0f, MID_H};
+	Point3D displayPosition {0.0f, 0.0f, MID_W};
 	Camera camera {cameraPosition, displayPosition, 0.0f, 0.0f}; // might need to be pi/2
 	Line line {{0, 0 , 100}, {0, 10, 100}};
 
@@ -40,7 +42,15 @@ int main(int argc, char* args[]) {
 			quit = true;
 		SDL_RenderClear(renderer);
 
-		projectLine(renderer, line, camera);
+		Point3D start {0, 0, 1000};
+		Point3D end {start};
+		end.z = 900;
+		for (int i {0}; i < 5; ++i)
+		{
+			drawLine(renderer, camera, {start, end});
+			start.x += 50;
+			end.x += 50;
+		}
 
 		SDL_RenderPresent(renderer);
 		SDL_Delay(500);

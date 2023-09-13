@@ -20,9 +20,9 @@
 
 constexpr Point3D origin {0.0f, 0.0f, 0.0f};
 
-void projectPoint(SDL_Renderer* renderer, const Point3D& point, const Camera& camera)
+void projectPoint(SDL_Renderer* renderer, const Camera& camera, const Point3D& point)
 {
-	Point2D projection {findProjection(point, camera)};
+	Point2D projection {findProjection(camera, point)};
 	projection.x = remapX(projection.x);
 	projection.y = remapY(projection.y);
 
@@ -32,10 +32,10 @@ void projectPoint(SDL_Renderer* renderer, const Point3D& point, const Camera& ca
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 }
 
-void projectLine(SDL_Renderer* renderer, const Line& line, const Camera& camera)
+void projectLine(SDL_Renderer* renderer, const Camera& camera, const Line& line)
 {
-	Point2D start {findProjection(line.start, camera)};
-	Point2D end {findProjection(line.end, camera)};
+	Point2D start {findProjection(camera, line.start)};
+	Point2D end {findProjection(camera, line.end)};
 
 	start.x = remapX(start.x);
 	start.y = remapY(start.y);
@@ -47,7 +47,7 @@ void projectLine(SDL_Renderer* renderer, const Line& line, const Camera& camera)
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 }
 
-Point2D findProjection(const Point3D& point, const Camera& camera)
+Point2D findProjection(const Camera& camera, const Point3D& point)
 {
 	Point3D cPos {camera.position};
 	//	if (cPos.x ==  origin.x && cPos.y == origin.y && cPos.z == origin.z &&

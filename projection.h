@@ -8,10 +8,8 @@
 
 #include "SDL2/SDL_render.h"
 
-void projectPoint(SDL_Renderer* renderer, const Point3D& point, const Camera& camera);
-
-void projectLine(SDL_Renderer* renderer, const Line& line, const Camera& camera);
-
-Point2D findProjection(const Point3D& point, const Camera& camera);
+void projectPoint(SDL_Renderer* renderer, const Camera& camera, const Point3D& point);
+void projectLine(SDL_Renderer* renderer, const Camera& camera, const Line& line);
+Point2D findProjection(const Camera& camera, const Point3D& point);
 
 #endif
