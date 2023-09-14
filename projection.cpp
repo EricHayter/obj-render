@@ -39,6 +39,12 @@ void projectLine(SDL_Renderer* renderer, const Camera& camera, const Line& line)
 
 	start.x = remapX(start.x);
 	start.y = remapY(start.y);
+
+	std::cout << start.x << "\n";
+	std::cout << start.y << "\n";
+	std::cout << "\n";
+
+
 	end.x = remapX(end.x);
 	end.y = remapY(end.y);
 
@@ -60,7 +66,6 @@ Point2D findProjection(const Camera& camera, const Point3D& point)
 	float dz {};
 	if (camera.yaw == 0.0f && camera.pitch == 0.0f)
 	{
-		std::cout << "Point at " << point.x << " " << point.y << " " << point.z << "\n";
 		dx = point.x - cPos.x;
 		dy = point.y - cPos.y;
 		dz = point.z - cPos.z;

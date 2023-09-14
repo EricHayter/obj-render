@@ -4,7 +4,7 @@ BUILDDIR=./build
 CC=g++
 OPT=-O0
 DEPFLAGS=-MP -MD
-CLAGS=-ggdb -pedantic-errors -std=c++20 -Werror -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -I.
+CLAGS=`-ggdb -pedantic-errors -std=c++20 -Werror -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion -I.`
 SDLFLAGS=`sdl2-config --cflags --libs`
 
 CFILES=$(wildcard *.cpp)
@@ -16,10 +16,10 @@ $(info $(CFILES))
 all: $(BINARY)
 
 $(BINARY): $(OBJECTS)
-	$(CC) -o $@ $^ $(SDLFLAGS)
+	$(CC) -o $@ $^ $(SDLFLAGS) -ggdb
 
 $(BUILDDIR)/%.o:%.cpp
-	$(CC) $(CFLAGS) -c -o $@ $^
+	$(CC) -ggdb $(CFLAGS) -c -o $@ $^
 
 clean:
 	rm -rf $(BINARY) $(OBJECTS)
