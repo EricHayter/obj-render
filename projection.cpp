@@ -8,8 +8,6 @@
 
 #include "SDL2/SDL_render.h"
 
-#include <iostream>
-
 /*
  * not quite right yet
  * the Y coordinated are incorrect with the way that we have them formatted
@@ -39,11 +37,6 @@ void projectLine(SDL_Renderer* renderer, const Camera& camera, const Line& line)
 
 	start.x = remapX(start.x);
 	start.y = remapY(start.y);
-
-	std::cout << start.x << "\n";
-	std::cout << start.y << "\n";
-	std::cout << "\n";
-
 
 	end.x = remapX(end.x);
 	end.y = remapY(end.y);

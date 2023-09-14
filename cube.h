@@ -5,6 +5,6 @@
 #include "camera.h"
 #include "point3d.h"
 
-void projectCube(SDL_Renderer* renderer,const Camera& camera, Point3D& p, const int length);
+void projectCube(SDL_Renderer* renderer, const Camera& camera, const Point3D& p, const int l);
 
 #endif

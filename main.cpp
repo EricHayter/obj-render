@@ -16,7 +16,6 @@ int main(int argc, char* args[]) {
 	Point3D cameraPosition {0.0f, 0.0f, 0.0f};
 	Point3D displayPosition {0.0f, 0.0f, MID_W};
 	Camera camera {cameraPosition, displayPosition, 0.0f, 0.0f}; // might need to be pi/2
-	Line line {{0, 0 , 1500}, {0, 10, 1000}};
 
 	std::cout << "Hello world!\n";
 
@@ -44,15 +43,7 @@ int main(int argc, char* args[]) {
 			quit = true;
 		SDL_RenderClear(renderer);
 
-		Point3D start {0, 0, 1000};
-		Point3D end {start};
-		end.z = 900;
-		for (int i {0}; i < 5; ++i)
-		{
-			projectLine(renderer, camera, {start, end});
-			start.x += 50;
-			end.x += 50;
-		}
+		projectCube(renderer, camera, {100.0f, 100.0f, 1500.0f}, 200);
 
 		SDL_RenderPresent(renderer);
 		SDL_Delay(500);
