@@ -1,0 +1,2 @@
+should Point2D be (int, int)?
+it's only use is projection to the screen which is always an int coordinate system

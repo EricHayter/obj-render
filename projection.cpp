@@ -87,6 +87,6 @@ Point2D findProjection(const Camera& camera, const Point3D& point)
 	}
 
 	Point3D e {camera.displayPosition};
-	Point2D projection {e.z/dz*dx + e.x, e.z/dz*dy +e.y};
+	Point2D projection {static_cast<int>(e.z/dz*dx + e.x), static_cast<int>(e.z/dz*dy +e.y)};
 	return projection;
 }

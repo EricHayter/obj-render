@@ -4,6 +4,7 @@
 #include "projection.h"
 #include "cube.h"
 #include "line.h"
+#include "fill.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
@@ -43,6 +44,8 @@ int main(int argc, char* args[]) {
 		if (event.type == SDL_QUIT)
 			quit = true;
 		SDL_RenderClear(renderer);
+
+		fillTopFlatTriangle(renderer, {100, 400}, {400, 400}, {100, 300});
 
 		projectCube(renderer, camera, origin, 200);
 		origin.x += 1;
