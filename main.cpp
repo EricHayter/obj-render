@@ -37,16 +37,17 @@ int main(int argc, char* args[]) {
 
 	bool quit {false};
 	SDL_Event event{};
+	Point3D origin {-400.0f, 100.0f, 1500.0f};
 	while (!quit)
 	{
 		if (event.type == SDL_QUIT)
 			quit = true;
 		SDL_RenderClear(renderer);
 
-		projectCube(renderer, camera, {100.0f, 100.0f, 1500.0f}, 200);
+		projectCube(renderer, camera, origin, 200);
+		origin.x += 1;
 
 		SDL_RenderPresent(renderer);
-		SDL_Delay(500);
 	}
 
 	SDL_DestroyWindow(window);
