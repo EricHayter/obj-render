@@ -28,7 +28,7 @@ int main(int argc, char* args[]) {
 	SDL_Window* window {};
 	SDL_Renderer* renderer {};
 
-	 SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &window, &renderer);
+	SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN, &window, &renderer);
 
 	if (window == NULL) {
 		std::cout << stderr << "could not create window :" << SDL_GetError() << "\n";
@@ -45,7 +45,7 @@ int main(int argc, char* args[]) {
 			quit = true;
 		SDL_RenderClear(renderer);
 
-		fillTopFlatTriangle(renderer, {100, 400}, {400, 400}, {100, 300});
+		fillTriangle(renderer, {100, 100}, {200, 300}, {500, 600});
 
 		projectCube(renderer, camera, origin, 200);
 		origin.x += 1;
