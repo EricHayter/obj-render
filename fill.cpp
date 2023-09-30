@@ -1,6 +1,8 @@
 #include "fill.h"
 #include "point2d.h"
 #include <SDL2/SDL_render.h>
+#include <algorithm>
+#include <iostream>
 
 // implementation of the simple flat top/bottom triangle
 void fillTriangle(SDL_Renderer* renderer, const Point2D& point1, const Point2D& point2, const Point2D& point3)
@@ -30,27 +32,22 @@ void fillTriangle(SDL_Renderer* renderer, const Point2D& point1, const Point2D& 
 	}
 	else
 	{
-		float xCoord {p3.x};
-		float slope {(p1.x - p3.x)/(p1.y - p3.y)};
-		for (float i {p3.y}; i < p2.y; ++i) // idk about this lol
-		{										// might be a bit too much voodoo
-			xCoord += slope;
-		}
-		fillBotFlatTriangle(renderer, point1, {xCoord, point2.y}, point2);
-		fillTopFlatTriangle(renderer, point2, {xCoord, point2.y}, point3);
+		Point2D midpoint {(p1.x + ((p2.y - p1.y) / (p3.y - p1.y)) * (p3.x - p1.x)), p2.y};
+		fillBotFlatTriangle(renderer, p1, midpoint, p2);
+		fillTopFlatTriangle(renderer, p2, midpoint, p3);
 	}
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 }
 
 void fillTopFlatTriangle(SDL_Renderer* renderer, const Point2D& p1, const Point2D& p2, const Point2D& p3)
 {
-	float cur1 {static_cast<float>(p3.x)};
-	float cur2 {static_cast<float>(p3.x)};
+	float cur1 {p3.x};
+	float cur2 {p3.x};
 
-	float slope1 {static_cast<float>(p3.x - p1.x)/(p3.y - p1.y)};
-	float slope2 {static_cast<float>(p3.x - p2.x)/(p3.y - p2.y)};
+	float slope1 {(p3.x - p1.x)/(p3.y - p1.y)};
+	float slope2 {(p3.x - p2.x)/(p3.y - p2.y)};
 
-	for (float i {p3.y}; i < p1.y; ++i)
+	for (int i {static_cast<int>(p3.y)}; i < static_cast<int>(p1.y); ++i)
 	{
 		SDL_RenderDrawLine(renderer, cur1, i, cur2, i);
 		cur1 += slope1;
@@ -60,16 +57,16 @@ void fillTopFlatTriangle(SDL_Renderer* renderer, const Point2D& p1, const Point2
 
 void fillBotFlatTriangle(SDL_Renderer* renderer, const Point2D& p1, const Point2D& p2, const Point2D& p3)
 {
-	float cur1 {static_cast<float>(p1.x)};
-	float cur2 {static_cast<float>(p1.x)};
+	float cur1 {p1.x};
+	float cur2 {p1.x};
 
-	float slope1 {static_cast<float>(p1.x - p2.x)/(p1.y - p2.y)};
-	float slope2 {static_cast<float>(p1.x - p3.x)/(p1.y - p3.y)};
+	float slope1 {(p1.x - p2.x)/(p1.y - p2.y)};
+	float slope2 {(p1.x - p3.x)/(p1.y - p3.y)};
 
-	for (float i {p1.y}; i > p2.y; --i)
+	for (int i {static_cast<int>(p1.y)}; i >= static_cast<int>(p2.y); --i)
 	{
 		SDL_RenderDrawLine(renderer, cur1, i, cur2, i);
-		cur1 += slope1;
-		cur2 += slope2;
+		cur1 -= slope1;
+		cur2 -= slope2;
 	}
 }

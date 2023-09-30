@@ -45,7 +45,7 @@ int main(int argc, char* args[]) {
 			quit = true;
 		SDL_RenderClear(renderer);
 
-		fillTriangle(renderer, {100, 100}, {200, 300}, {500, 600});
+		fillTriangle(renderer, {100, 100}, {600, 600}, {200, 900});
 
 		projectCube(renderer, camera, origin, 200);
 		origin.x += 1;
